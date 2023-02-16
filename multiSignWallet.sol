@@ -14,11 +14,11 @@ contract MultiSignWallet is MultiSign {
     mapping(bytes32 => Transfer) transfers; // txid => Transfer
     mapping(address => mapping(bytes32 => bool)) isSent; // signer => txid => isSent
 
-    event Deposit(
+    event Wrap(
         address indexed sender,
-        uint256 amount,
-        bytes32 to,
-        bytes32 chain
+        address indexed to,
+        bytes32 symbol,
+        uint256 amount
     );
 
     constructor(address[] memory _signers, uint8 _requireCount)
@@ -55,10 +55,10 @@ contract MultiSignWallet is MultiSign {
         }
     }
 
-    // deposit to this contract
+    // deposit native token to this contract to wrap token in the target chain
     // to is the address in the target chain
-    // chain is the bridge chain's name
-    function deposit(bytes32 to, bytes32 chain) external payable {
-        emit Deposit(msg.sender, msg.value, to, chain);
+    // symobl is the bridge token symbol in the target chain
+    function wrap(address to, bytes32 symbol) external payable {
+        emit Wrap(msg.sender, to, symbol, msg.value);
     }
 }

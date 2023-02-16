@@ -27,9 +27,12 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
         uint256 amount
     );
 
-    constructor(address[] memory _signers, uint8 _requireCount)
-        MultiSign(_signers, _requireCount)
-    {
+    constructor(
+        string memory _symbol,
+        uint8 _decimal,
+        address[] memory _signers,
+        uint8 _requireCount
+    ) WrapERC20(_symbol, _decimal) MultiSign(_signers, _requireCount) {
         owner = msg.sender;
     }
 

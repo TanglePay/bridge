@@ -4,12 +4,17 @@ pragma solidity =0.8.17;
 import "./interfaces/IERC20.sol";
 
 contract WrapERC20 is IERC20 {
-    string public constant override name = "WrapIota";
-    string public constant override symbol = "smIota";
-    uint8 public constant override decimals = 6;
+    string public constant override name = "Wrap Token";
+    string public override symbol;
+    uint8 public immutable override decimals;
     uint256 public override totalSupply;
     mapping(address => uint256) public override balanceOf;
     mapping(address => mapping(address => uint256)) public override allowance;
+
+    constructor(string memory _symbol, uint8 _decimals) {
+        symbol = _symbol;
+        decimals = _decimals;
+    }
 
     function _mint(address to, uint256 value) internal {
         totalSupply += value;
