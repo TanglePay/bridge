@@ -28,11 +28,12 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
     );
 
     constructor(
+        string memory _name,
         string memory _symbol,
         uint8 _decimal,
         address[] memory _signers,
         uint8 _requireCount
-    ) WrapERC20(_symbol, _decimal) MultiSign(_signers, _requireCount) {
+    ) WrapERC20(_name, _symbol, _decimal) MultiSign(_signers, _requireCount) {
         owner = msg.sender;
     }
 
@@ -69,11 +70,7 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
         }
     }
 
-    function unWrap(
-        bytes32 to,
-        bytes32 symbol,
-        uint256 amount
-    ) public {
+    function unWrap(bytes32 to, bytes32 symbol, uint256 amount) public {
         _burn(msg.sender, amount);
         uint256 fee = (amount * feeRate) / FEE_DIV_CONST;
         feeSum += fee;
@@ -88,11 +85,7 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
     }
 
     //unwrap the fee to dev team
-    function unWrapFee(
-        bytes32 to,
-        bytes32 symbol,
-        uint256 fee
-    ) external {
+    function unWrapFee(bytes32 to, bytes32 symbol, uint256 fee) external {
         require(msg.sender == owner, "forbidden");
         feeSum -= fee;
         emit UnWrap(owner, to, symbol, fee);
