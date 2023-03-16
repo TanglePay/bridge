@@ -5,13 +5,17 @@
     const requireNum = 4;
 ```
 ## Mumbai network :
+```
 WBTC deployed to 0x0eddA25a338e68E935112b23C6E8a30AC216AD74
 MultiSignWallet deployed to 0x869A79ef105619e55a0b20FFAd091c2EFf8bf9eF
 MultiSignERC20Wallet deployed to 0x2023D77Aea434afD7433fD9f8b4E1B61Df237Ec2
+```
 ## Shimmer evm testnet :
+```
 sETH deployed to 0x8D2A1ff9615073F4Af87928A0daAA356D5B17Eb3
 sWBTC deployed to 0x20C957719e5A3213B0cbA7426e35537B9F94431E
 sMIOTA deployed to 0x388b395BceB2EDB4636873A3F630565323BB53a1
+```
 
 # Bridge test alpha
 ## multisigners
@@ -22,8 +26,8 @@ sMIOTA deployed to 0x388b395BceB2EDB4636873A3F630565323BB53a1
 ## Mumbai network :
 ```
 WBTC deployed to 0x0eddA25a338e68E935112b23C6E8a30AC216AD74
-MultiSignWallet deployed to 0xb0cD1c4522c5dd243a530555562839De3A0B42d3
-MultiSignERC20Wallet deployed to 0x108f44932E5817eD8131261E1967233385cE39e9
+MultiSignWallet deployed to 0xb0cD1c4522c5dd243a530555562839De3A0B42d3 as the ETH wallet
+MultiSignERC20Wallet deployed to 0x108f44932E5817eD8131261E1967233385cE39e9 as the WBTC wallet
 ```
 ## Shimmer evm testnet :
 ```
