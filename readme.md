@@ -46,6 +46,7 @@ symbol = 0x7345544800000000000000000000000000000000000000000000000000000000
 ## WBTC => sWBTC
 1. Approve user's token of WBTC to the contract of MultiSignERC20Wallet, whose address is 0x108f44932E5817eD8131261E1967233385cE39e9.
 2. Call the function of wrap(address to, bytes32 symbol, uint256 amount) to wrap WBTC to sWBTC to shimmer evm.
+3. User can get WBTC test token from the faucet function of contract WBTC in 0x0eddA25a338e68E935112b23C6E8a30AC216AD74.
 ```
 convert sWBTC as bytes to hex string is 7357425443
 symbol = 0x7357425443000000000000000000000000000000000000000000000000000000
