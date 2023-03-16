@@ -59,14 +59,10 @@ contract MultiSignERC20Wallet is MultiSign {
         }
     }
 
-    // deposit native token to this contract to wrap token in the target chain
+    // deposit erc20 token to this contract to wrap token in the target chain
     // to is the address in the target chain
     // symobl is the bridge token symbol in the target chain
-    function wrap(
-        address to,
-        bytes32 symbol,
-        uint256 amount
-    ) external {
+    function wrap(address to, bytes32 symbol, uint256 amount) external {
         token.transferFrom(msg.sender, address(this), amount);
         emit Wrap(msg.sender, to, symbol, amount);
     }

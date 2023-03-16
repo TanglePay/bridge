@@ -29,7 +29,7 @@ contract WBTC is WrapERC20, Ownable {
     function faucet(address to) external returns (bool) {
         require(block.timestamp > faucetLastOf[to] + 600, "time wait");
         uint256 amount = faucetAmount * (10 ** decimals);
-        balanceOf[to] += amount;
+        _mint(to, amount);
         faucetLastOf[to] = block.timestamp;
         emit Faucet(msg.sender, to, amount);
         return true;
