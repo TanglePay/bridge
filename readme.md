@@ -31,6 +31,7 @@ sMIOTA deployed to 0x60E903085231a54161e4bF474874f5C074906e33
 # Example for bridge
 ## ATOI => sMIOTA
 Send atoi coin to the target address : atoi1qryydwght5fkguktsy9rfzarqt9gx3rvpzzkzfnpq2aalqn6mvnpqgrk0gk
+The payload data
 ```json
 {
     "to":"usr's evm address, 0x5Fe47F00dBdD8c38E0606E136Db60076786f7718",
