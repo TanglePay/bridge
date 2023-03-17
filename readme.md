@@ -1,6 +1,11 @@
 # Bridge IOTA And ETH <=> Shimmer EVM
+## Summary
+* The IOTAMPC Bridge allows for the exchange of digital assets between the Shimmer EVM, IOTA, and other EVM networks using a combination of Multi-Party Computation (MPC) and multi-signature contract technologies. The bridge currently supports various transaction pairs between different networks, including the wrapping and unwrapping of IOTA's atoi onto the Shimmer EVM testnet and ETH & WBTC from the Polygon testnet (Mumbai) onto the Shimmer EVM testnet.
+* During the Shimmer testnet period, two versions of the bridge are available: Alpha and Beta. The Alpha version is intended for user testing, while the Beta version is designed for more advanced testing with the validators running in production environments.
+Overall, the IOTAMPC Bridge provides a secure, flexible, and robust solution for exchanging digital assets between the Shimmer EVM and other networks, making it a valuable tool for businesses and individuals looking to take advantage of the unique features and capabilities of these networks.
+
 ## SMPC for iota
-For more detail of smpc, to see [Secure_multi-party_computation](https://en.wikipedia.org/wiki/Secure_multi-party_computation). About multisignature wallets, to see the [introduction](https://101blockchains.com/multisignature-wallets/). All the networks like ethereum which support evm can create the Multisig Wallet using contract code. The iota net don't support multisig and evm, so we can use smpc as the Multisig Wallet.
+For more detail of smpc, to see [Secure_multi-party_computation](https://en.wikipedia.org/wiki/Secure_multi-party_computation). About multisignature wallets, to see the [introduction](https://101blockchains.com/multisignature-wallets/). All the networks like ethereum which support evm can create the Multisig Wallet using contract code. The iota net don't support multisig and evm as yet, so we should use smpc as the Multisig Wallet.
 
 ## Bridge test alpha
 ### multisigners
