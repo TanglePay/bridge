@@ -9,6 +9,7 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
     uint24 public constant FEE_DIV_CONST = 100000;
     uint24 public constant feeRate = 1000; // it means %1 (feeRate / FEE_DIV_CONST * 100%)
     uint256 public feeSum;
+    uint256 public minUnWrapAmount;
 
     struct WrapTx {
         uint256 amount;
@@ -31,10 +32,12 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
         string memory _name,
         string memory _symbol,
         uint8 _decimal,
+        uint256 minAmount,
         address[] memory _signers,
         uint8 _requireCount
     ) WrapERC20(_name, _symbol, _decimal) MultiSign(_signers, _requireCount) {
         owner = msg.sender;
+        minUnWrapAmount = minAmount;
     }
 
     // mint ERC20 token to user
@@ -71,6 +74,7 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
     }
 
     function unWrap(bytes32 to, bytes32 symbol, uint256 amount) public {
+        require(amount >= minUnWrapAmount, "amount low");
         _burn(msg.sender, amount);
         uint256 fee = (amount * feeRate) / FEE_DIV_CONST;
         feeSum += fee;
