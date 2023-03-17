@@ -1,4 +1,4 @@
-# Bridge IOTA <=> Shimmer EVM
+# Bridge IOTA And ETH <=> Shimmer EVM
 ## SMPC for iota
 For more detail of smpc, <https://en.wikipedia.org/wiki/Secure_multi-party_computation>. About multisignature wallets, see <https://101blockchains.com/multisignature-wallets/>. All the networks like ethereum which support evm can create the Multisig Wallet using contract code. The iota net don't support multisig and evm, so we can use smpc as the Multisig Wallet.
 
