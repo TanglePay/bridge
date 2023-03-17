@@ -36,7 +36,7 @@ sWBTC deployed to 0x742DBFF28338Cfe3a4a6545D0F6e9ca7EDf77E76
 sMIOTA deployed to 0x60E903085231a54161e4bF474874f5C074906e33
 ```
 
-# Example for bridge
+# Example for bridge alpha
 ## ATOI => sMIOTA
 Send atoi coin to the target address : atoi1qryydwght5fkguktsy9rfzarqt9gx3rvpzzkzfnpq2aalqn6mvnpqgrk0gk. The payload data is as follows:
 ```json
