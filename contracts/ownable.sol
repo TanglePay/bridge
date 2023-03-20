@@ -13,7 +13,7 @@ contract Ownable {
     }
 
     //accept the owner
-    function acceptSetter() external {
+    function acceptOwner() external {
         require(msg.sender == newOwner, "forbidden");
         owner = newOwner;
         newOwner = address(0);

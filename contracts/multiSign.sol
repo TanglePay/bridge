@@ -29,107 +29,114 @@ contract MultiSign {
             iSigner[_signers[i]] = i + 1;
         }
         signers = _signers;
+        require(_requireCount > signers.length / 2, "too small requireCount");
         requireCount = _requireCount;
     }
 
-    address public addingSigner;
-    uint8 public addingCount;
-    mapping(address => mapping(address => bool)) public isAdded; // singer => addingSigner => isAdded
+    uint256 public constant overTime = 86400;
+    // the signers changed proposal
+    struct SignerProposal {
+        int8 d; // 1 means adding signer; -1 means removing signer;
+        address signer; // the signer to deal
+        uint8 agreedCount;
+        uint256 overTime;
+    }
+    mapping(uint256 => SignerProposal) public signerProposals;
+    mapping(uint256 => mapping(address => bool)) public isSignerProposalAgreed; // number of proposal => signer => true
 
-    // To add a signer
-    function addSigner(address signer) external onlySigner {
-        if (addingSigner == address(0)) {
-            require(iSigner[signer] == 0, "already exist");
-            addingSigner = signer;
-            //set isAdded empty
-            for (uint8 i = 0; i < signers.length; i++) {
-                delete isAdded[msg.sender][signer];
+    function submitSignerProposal(
+        int8 d,
+        address signer
+    ) external onlySigner returns (uint256) {
+        require(signerProposals[block.number].d == 0, "exist proposal");
+        if (d == -1) {
+            require(iSigner[signer] > 0, "address not exist");
+        } else if (d == 1) {
+            require(iSigner[signer] == 0, "address exist");
+        }
+        signerProposals[block.number] = SignerProposal(
+            d,
+            signer,
+            1,
+            block.timestamp + overTime
+        );
+        isSignerProposalAgreed[block.number][msg.sender] = true;
+        return block.number;
+    }
+
+    function agreeSignerProposal(
+        uint256 number,
+        int8 d,
+        address signer
+    ) external onlySigner {
+        require(
+            signerProposals[number].d == d &&
+                signerProposals[number].signer == signer &&
+                signerProposals[number].overTime >= block.timestamp,
+            "mismatch"
+        );
+
+        if (!isSignerProposalAgreed[number][msg.sender]) {
+            isSignerProposalAgreed[number][msg.sender] = true;
+            signerProposals[number].agreedCount++;
+        }
+
+        if (signerProposals[number].agreedCount >= requireCount) {
+            if (d == 1) {
+                signers.push(signer);
+                iSigner[signer] = uint8(signers.length);
+                emit SignerAddition(signer);
+            } else if (d == -1) {
+                uint8 index = iSigner[signer];
+                address lastSigner = signers[signers.length - 1];
+                signers[index - 1] = lastSigner;
+                iSigner[lastSigner] = index;
+                delete iSigner[signer];
+                signers.pop();
+                emit SignerRemoval(signer);
             }
-        } else {
-            require(addingSigner == signer, "wrong signer");
-        }
-
-        if (!isAdded[msg.sender][signer]) {
-            isAdded[msg.sender][signer] = true;
-            addingCount++;
-        }
-
-        if (addingCount >= requireCount) {
-            signers.push(signer);
-            iSigner[signer] = uint8(signers.length);
-
-            addingSigner = address(0);
-            addingCount = 0;
-
-            emit SignerAddition(signer);
         }
     }
 
-    uint8 public removingIndex;
-    uint8 public removingCount;
-    mapping(address => mapping(uint8 => bool)) public isRemoved; // singer => removingIndex => isRemoved
+    struct CountProposal {
+        uint8 newCount;
+        uint8 agreedCount;
+        uint256 overTime;
+    }
+    mapping(uint256 => CountProposal) public countProposals;
+    mapping(uint256 => mapping(address => bool)) public isCountProposalAgreed; // number of proposal => signer => true
 
-    // To remove a signer
-    function removeSigner(uint8 index) external onlySigner {
-        if (removingIndex == 0) {
-            require(index < signers.length, "wrong index");
-            removingIndex == index;
-            //set isRemoved empty
-            for (uint8 i = 0; i < signers.length; i++) {
-                delete isRemoved[msg.sender][i];
-            }
-        } else {
-            require(removingIndex == index, "mismatched index");
-        }
-
-        if (!isRemoved[msg.sender][index]) {
-            isRemoved[msg.sender][index] = true;
-            removingCount++;
-        }
-
-        if (removingCount >= requireCount) {
-            address toDelAddr = signers[index];
-            address lastSigner = signers[signers.length - 1];
-            signers[index] = lastSigner;
-            iSigner[lastSigner] = index + 1;
-            delete iSigner[toDelAddr];
-            signers.pop();
-
-            removingIndex = 0;
-            removingCount = 0;
-
-            emit SignerRemoval(toDelAddr);
-        }
+    function submitCountProposal(
+        uint8 newCount
+    ) external onlySigner returns (uint256) {
+        require(countProposals[block.number].newCount == 0, "exist proposal");
+        require(newCount > signers.length / 2, "count too small");
+        countProposals[block.number] = CountProposal(
+            newCount,
+            1,
+            block.timestamp + overTime
+        );
+        isCountProposalAgreed[block.number][msg.sender] = true;
+        return block.number;
     }
 
-    uint8 public newRequireCount;
-    uint8 public changingCount;
-    mapping(address => bool) public isChangeCount; // singer => siChangeCount;
+    function agreeCountProposal(
+        uint256 number,
+        uint8 newCount
+    ) external onlySigner {
+        require(
+            countProposals[number].newCount == newCount &&
+                countProposals[number].overTime >= block.timestamp,
+            "mismatch"
+        );
 
-    // to change the requireCount
-    function changeRequireCount(uint8 newCount) external onlySigner {
-        if (newRequireCount == 0) {
-            require(newCount <= signers.length, "wrong count");
-            newRequireCount == newCount;
-            //set isChangeCount empty
-            for (uint8 i = 0; i < signers.length; i++) {
-                delete isChangeCount[msg.sender];
-            }
-        } else {
-            require(newCount == newRequireCount, "mismatched count");
+        if (!isCountProposalAgreed[number][msg.sender]) {
+            isCountProposalAgreed[number][msg.sender] = true;
+            countProposals[number].agreedCount++;
         }
 
-        if (!isChangeCount[msg.sender]) {
-            isChangeCount[msg.sender] = true;
-            changingCount++;
-        }
-
-        if (changingCount >= requireCount) {
+        if (countProposals[number].agreedCount >= requireCount) {
             requireCount = newCount;
-
-            newRequireCount = 0;
-            changingCount = 0;
-
             emit ChangeRequireCount(newCount);
         }
     }
