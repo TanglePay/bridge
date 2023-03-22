@@ -1,16 +1,20 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity =0.8.17;
+pragma solidity =0.8.19;
 
-import "./multiSign.sol";
+import {MultiSign} from "./multiSign.sol";
+// import {ReentrancyGuard} from "./lib/ReentrancyGuard.sol";
 
-contract MultiSignWallet is MultiSign {
+contract MultiSignWallet is MultiSign /*, ReentrancyGuard */ {
+
+    // 3 slots
     struct Transfer {
         uint256 amount;
-        address payable to;
         uint256 requiredCount;
+        address payable to;
         bool sent;
     }
+
     mapping(bytes32 => Transfer) transfers; // txid => Transfer
     mapping(address => mapping(bytes32 => bool)) isSent; // signer => txid => isSent
 
@@ -33,14 +37,21 @@ contract MultiSignWallet is MultiSign {
         uint256 amount,
         address payable to
     ) external onlySigner {
-        require(!transfers[txid].sent, "sent over");
+        if (transfers[txid].sent) revert("sent over");
+        // require(!transfers[txid].sent, "sent over");
         if (transfers[txid].to == address(0)) {
-            transfers[txid] = Transfer(amount, to, 0, false);
+            transfers[txid] = Transfer(amount, 0, to, false);
         } else {
+            if (transfers[txid].amount != amount && 
+                transfers[txid].to != to) 
+                    revert("invalid transfer");
+            
+            /*
             require(
                 transfers[txid].amount == amount && transfers[txid].to == to,
                 "invalid transfer"
             );
+            */
         }
         if (!isSent[msg.sender][txid]) {
             isSent[msg.sender][txid] = true;
@@ -50,7 +61,7 @@ contract MultiSignWallet is MultiSign {
         if (transfers[txid].requiredCount >= requireCount) {
             transfers[txid].sent = true;
             (bool success, ) = to.call{value: amount}("");
-            require(success, "transfer failed");
+            if (!success) revert("transfer failed");
             return;
         }
     }
@@ -58,7 +69,7 @@ contract MultiSignWallet is MultiSign {
     // deposit native token to this contract to wrap token in the target chain
     // to is the address in the target chain
     // symobl is the bridge token symbol in the target chain
-    function wrap(address to, bytes32 symbol) external payable {
+    function wrap(address to, bytes32 symbol) external payable /* nonReentrant */ {
         emit Wrap(msg.sender, to, symbol, msg.value);
     }
 }

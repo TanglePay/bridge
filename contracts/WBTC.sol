@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity =0.8.17;
+pragma solidity =0.8.19;
 
-import "./wrapERC20.sol";
-import "./ownable.sol";
-import "./multiSign.sol";
+import {WrapERC20} from "./wrapERC20.sol";
+import {Ownable} from "./ownable.sol";
+import {MultiSign} from "./multiSign.sol";
 
 contract WBTC is WrapERC20, Ownable {
     constructor(

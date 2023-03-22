@@ -1,16 +1,19 @@
 //SPDX-License-Identifier: UNLICENSED
 
-pragma solidity =0.8.17;
+pragma solidity =0.8.19;
 
-import "./interfaces/IERC20.sol";
-import "./multiSign.sol";
+import {IERC20} from "./interfaces/IERC20.sol";
+import {MultiSign} from "./multiSign.sol";
+import {ReentrancyGuard} from "./lib/ReentrancyGuard.sol";
 
-contract MultiSignERC20Wallet is MultiSign {
+contract MultiSignERC20Wallet is MultiSign, ReentrancyGuard {
     IERC20 public immutable token; // the token contract address to wrap
+
+    // 3 slots
     struct Transfer {
         uint256 amount;
-        address payable to;
         uint256 requiredCount;
+        address payable to;
         bool sent;
     }
     mapping(bytes32 => Transfer) transfers; // txid => Transfer
@@ -25,7 +28,7 @@ contract MultiSignERC20Wallet is MultiSign {
 
     constructor(
         address[] memory _signers,
-        uint8 _requireCount,
+        uint256 _requireCount,
         address _token
     ) MultiSign(_signers, _requireCount) {
         token = IERC20(_token);
@@ -39,14 +42,21 @@ contract MultiSignERC20Wallet is MultiSign {
         uint256 amount,
         address payable to
     ) external onlySigner {
-        require(!transfers[txid].sent, "sent over");
+        // require(!transfers[txid].sent, "sent over");
+        if (transfers[txid].sent) revert("sent over");
+
         if (transfers[txid].to == address(0)) {
-            transfers[txid] = Transfer(amount, to, 0, false);
+            transfers[txid] = Transfer(amount, 0, to, false);
         } else {
+            if (transfers[txid].amount != amount && 
+                transfers[txid].to != to) 
+                    revert("invalid transfer");
+            /*        
             require(
                 transfers[txid].amount == amount && transfers[txid].to == to,
                 "invalid transfer"
             );
+            */
         }
         if (!isSent[msg.sender][txid]) {
             isSent[msg.sender][txid] = true;
@@ -62,7 +72,7 @@ contract MultiSignERC20Wallet is MultiSign {
     // deposit erc20 token to this contract to wrap token in the target chain
     // to is the address in the target chain
     // symobl is the bridge token symbol in the target chain
-    function wrap(address to, bytes32 symbol, uint256 amount) external {
+    function wrap(address to, bytes32 symbol, uint256 amount) external nonReentrant {
         token.transferFrom(msg.sender, address(this), amount);
         emit Wrap(msg.sender, to, symbol, amount);
     }

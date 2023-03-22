@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.8.0;
+pragma solidity =0.8.19;
 
 interface IERC20 {
     event Approval(
@@ -33,4 +33,10 @@ interface IERC20 {
         address to,
         uint256 value
     ) external returns (bool);
+
+    function permit(
+        address owner, 
+        address spender, 
+        uint value, 
+        uint deadline, uint8 v, bytes32 r, bytes32 s) external;
 }

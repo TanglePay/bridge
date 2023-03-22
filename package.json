@@ -1,11 +1,23 @@
 {
+  "name": "tanglepay-bridge",
+  "version": "0.1",
+  "description": "Smart Contracts",
+  "directories": {
+    "test": "test"
+  },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
-    "hardhat": "^2.13.0"
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.13.0",
+    "hardhat-gas-reporter": "^1.0.9"
   },
   "dependencies": {
     "add": "^2.0.6",
     "dotenv": "^16.0.3",
     "process-env": "^2.0.2"
+  },
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "clean": "npx hardhat clean",
+    "node": "npx hardhat node"
   }
 }

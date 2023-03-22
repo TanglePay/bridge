@@ -14,13 +14,20 @@ async function main() {
     const MultiSignWallet = await hre.ethers.getContractFactory("MultiSignWallet");
     const msw = await MultiSignWallet.deploy(signers, requireNum);
     await msw.deployed();
+    const gasPr = msw.deployTransaction.gasPrice;
+    const gasUsed = msw.deployTransaction.gasLimit;
     console.log(`MultiSignWallet deployed to ${msw.address}`);
+    console.log(`Total Gas: ${gasUsed}, Price: ${gasPr}`);
 
     const wToken = "0x0eddA25a338e68E935112b23C6E8a30AC216AD74";
     const MultiSignERC20Wallet = await hre.ethers.getContractFactory("MultiSignERC20Wallet")
     const msew = await MultiSignERC20Wallet.deploy(signers, requireNum, wToken);
     await msew.deployed();
+    const gasPr2 = msew.deployTransaction.gasPrice;
+    const gasUsed2 = msew.deployTransaction.gasLimit;
+
     console.log(`MultiSignERC20Wallet deployed to ${msew.address}`);
+    console.log(`Total Gas: ${gasUsed2}, Price: ${gasPr2}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
