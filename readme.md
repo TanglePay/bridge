@@ -16,14 +16,15 @@ For more details on SMPC, to see [Secure_multi-party_computation](https://en.wik
 ### Mumbai network :
 ```
 WBTC deployed to 0x0eddA25a338e68E935112b23C6E8a30AC216AD74 as the test WBTC token
-MultiSignWallet deployed to 0xb0cD1c4522c5dd243a530555562839De3A0B42d3 as the test ETH wallet
+MultiSignWallet deployed to 0xb0cD1c4522c5dd243a530555562839De3A0B42d3 as the test MATIC wallet
 MultiSignERC20Wallet deployed to 0x108f44932E5817eD8131261E1967233385cE39e9 as the test WBTC wallet
 ```
 ### Shimmer evm testnet :
+
 ```
-sETH deployed to 0x2c9D7E34e41d763f55b4539B9aFebfE7C1C89bE3
-sWBTC deployed to 0x742DBFF28338Cfe3a4a6545D0F6e9ca7EDf77E76
-sMIOTA deployed to 0x60E903085231a54161e4bF474874f5C074906e33
+sMATIC deployed to 0xB97efbB5e3Ac72b8e3502CB7dC9bb8C7F334848B
+sWBTC deployed to 0x085dE71C2F983b4Fb701467A2d1497447Eecd241
+sMIOTA deployed to 0x874A73429C90e57Ef07F6632B7575CDB0EF8f76F
 ```
 
 ## Example for bridge alpha
@@ -35,10 +36,10 @@ Send atoi coin to the target address : atoi1qryydwght5fkguktsy9rfzarqt9gx3rvpzzk
     "symbol":"sMIOTA"
 }
 ```
-### ETH => sETH
-Send ETH to the contract of MultiSignWallet, whose address is 0xb0cD1c4522c5dd243a530555562839De3A0B42d3, by calling the function of wrap(address to, bytes32 symbol) 
+### MATIC => sMATIC
+Send MATIC to the contract of MultiSignWallet, whose address is 0xb0cD1c4522c5dd243a530555562839De3A0B42d3, by calling the function of wrap(address to, bytes32 symbol) 
 ```
-convert sETH as bytes to hex string is 73455448
+convert sMATIC as bytes to hex string is 73455448
 symbol = 0x7345544800000000000000000000000000000000000000000000000000000000
 ```
 ### WBTC => sWBTC
@@ -50,21 +51,21 @@ convert sWBTC as bytes to hex string is 7357425443
 symbol = 0x7357425443000000000000000000000000000000000000000000000000000000
 ```
 ### sMIOTA => ATOI
-Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMIOT's contract address is 0x60E903085231a54161e4bF474874f5C074906e33.
+Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMIOT's contract address is 0x874A73429C90e57Ef07F6632B7575CDB0EF8f76F.
 ```
 'to' is the Ed25519 Address of atoi network. 
 The Ed25519 Address is 'b1037d303dd8046df74b56d5c38e8a196f304c76414330cd8b14c17fcb830dc8' for the address of 'atoi1qzcsxlfs8hvqgm0hfdtdtsuw3gvk7vzvweq5xvxd3v2vzl7tsvxusahd7gv'.
 symbol = 0x41544f4900000000000000000000000000000000000000000000000000000000
 min amount is 1120000
 ```
-### sETH => ETH
-Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sETH's contract address is 0x2c9D7E34e41d763f55b4539B9aFebfE7C1C89bE3.
+### sMATIC => MATIC
+Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMATIC's contract address is 0xB97efbB5e3Ac72b8e3502CB7dC9bb8C7F334848B.
 ```
 to =     0x0000000000000000000000005Fe47F00dBdD8c38E0606E136Db60076786f7718
 symbol = 0x4554480000000000000000000000000000000000000000000000000000000000
 ```
 ### sWBTC => WBTC
-Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sWBTC's contract address is 0x742DBFF28338Cfe3a4a6545D0F6e9ca7EDf77E76.
+Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sWBTC's contract address is 0x085dE71C2F983b4Fb701467A2d1497447Eecd241.
 ```
 to =     0x0000000000000000000000005Fe47F00dBdD8c38E0606E136Db60076786f7718
 symbol = 0x5742544300000000000000000000000000000000000000000000000000000000

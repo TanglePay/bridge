@@ -4,9 +4,9 @@ require("dotenv").config();
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.17",
-  defaultNetwork: "smrevm1070",
+  defaultNetwork: "smrevm1071",
   networks: {
-    smrevm1070: {
+    smrevm1071: {
       url: "https://json-rpc.evm.testnet.shimmer.network/",
       accounts: [process.env.RMS_EVM_PRIVATEKEY],
     },

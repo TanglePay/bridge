@@ -12,15 +12,15 @@ async function main() {
   const requireNum = 2;
 
   const BridgeWrap = await hre.ethers.getContractFactory("BridgeWrap")
-  const sETH = await BridgeWrap.deploy("Wrap ETH", "sETH", 18, signers, requireNum);
-  await sETH.deployed();
-  console.log(`sETH deployed to ${sETH.address}`);
+  const sMATIC = await BridgeWrap.deploy("Wrap MATIC", "sMATIC", 18, 1, signers, requireNum);
+  await sMATIC.deployed();
+  console.log(`sMATIC deployed to ${sMATIC.address}`);
 
-  const sWBTC = await BridgeWrap.deploy("Wrap WBTC", "sWBTC", 8, signers, requireNum);
+  const sWBTC = await BridgeWrap.deploy("Wrap WBTC", "sWBTC", 8, 1, signers, requireNum);
   await sWBTC.deployed();
   console.log(`sWBTC deployed to ${sWBTC.address}`);
 
-  const sMIOTA = await BridgeWrap.deploy("Wrap MIOTA", "sMIOTA", 6, signers, requireNum);
+  const sMIOTA = await BridgeWrap.deploy("Wrap MIOTA", "sMIOTA", 6, 1010102, signers, requireNum);
   await sMIOTA.deployed();
   console.log(`sMIOTA deployed to ${sMIOTA.address}`);
 }
