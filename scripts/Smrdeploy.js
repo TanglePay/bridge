@@ -8,8 +8,10 @@ const hre = require("hardhat");
 require("dotenv").config();
 
 async function main() {
-  const signers = ["0x273a0D884aA94EB1cD8735D7B1F1451fC70a1131", "0xfC0F8F40eCc0C180A707FdCe7c6FB8138705c785", "0xC4607f0F8337Ac925D4353ECf8e57f8057f6ce90"];
-  const requireNum = 2;
+  //const signers = ["0x273a0D884aA94EB1cD8735D7B1F1451fC70a1131", "0xfC0F8F40eCc0C180A707FdCe7c6FB8138705c785", "0xC4607f0F8337Ac925D4353ECf8e57f8057f6ce90"];
+  //const requireNum = 2;
+  const signers = ["0xEAFeeDe1634C730767f8BB52B228409A97e20834", "0x520da6bE41DdD56719b96685aa8a16f97c6907cA", "0xbC6FBA88AD1F470494095C793cEcB5AcF956f09a", "0x458a8E1cc5da9a205AFa66C3A6Fba40abf974203", "0x0cd6770bec3a5984f518b6fb296b394ad27b2e14", "0xad123dddd5128e43b807faa816a88487f46700b4"];
+  const requireNum = 4;
 
   const BridgeWrap = await hre.ethers.getContractFactory("BridgeWrap")
   const sMATIC = await BridgeWrap.deploy("Wrap MATIC", "sMATIC", 18, 1, signers, requireNum);
