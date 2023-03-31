@@ -9,7 +9,7 @@ contract MultiSignERC20Wallet is MultiSign {
     IERC20 public immutable token; // the token contract address to wrap
     struct Transfer {
         uint256 amount;
-        address payable to;
+        address to;
         uint256 requiredCount;
         bool sent;
     }
@@ -37,7 +37,7 @@ contract MultiSignERC20Wallet is MultiSign {
     function send(
         bytes32 txid,
         uint256 amount,
-        address payable to
+        address to
     ) external onlySigner {
         require(!transfers[txid].sent, "sent over");
         if (transfers[txid].to == address(0)) {
