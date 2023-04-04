@@ -51,6 +51,7 @@ contract MultiSign {
         require(signerProposals[block.number].d == 0, "exist proposal");
         if (d == -1) {
             require(iSigner[signer] > 0, "address not exist");
+            require(requireCount < signers.length, "requireCount error");
         } else if (d == 1) {
             require(iSigner[signer] == 0, "address exist");
         }
@@ -110,7 +111,10 @@ contract MultiSign {
         uint8 newCount
     ) external onlySigner returns (uint256) {
         require(countProposals[block.number].newCount == 0, "exist proposal");
-        require(newCount > signers.length / 2, "count too small");
+        require(
+            (newCount > signers.length / 2) && (newCount <= signers.length),
+            "count error"
+        );
         countProposals[block.number] = CountProposal(
             newCount,
             1,

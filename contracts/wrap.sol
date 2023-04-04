@@ -13,7 +13,7 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
 
     struct WrapTx {
         uint256 amount;
-        address payable to;
+        address to;
         uint8 requiredCount;
         bool sent;
     }
@@ -45,7 +45,7 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
     function wrap(
         bytes32 txid,
         uint256 amount,
-        address payable to
+        address to
     ) external onlySigner {
         require(!wraps[txid].sent, "wrapped finished");
         require(!isWrapped[msg.sender][txid], "sender wrapped");
