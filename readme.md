@@ -39,8 +39,8 @@ Send atoi coin to the target address : atoi1qryydwght5fkguktsy9rfzarqt9gx3rvpzzk
 ### MATIC => sMATIC
 Send MATIC to the contract of MultiSignWallet, whose address is 0xb0cD1c4522c5dd243a530555562839De3A0B42d3, by calling the function of wrap(address to, bytes32 symbol) 
 ```
-convert sMATIC as bytes to hex string is 73455448
-symbol = 0x7345544800000000000000000000000000000000000000000000000000000000
+convert sMATIC as bytes to hex string is 734d41544943
+symbol = 0x734d415449430000000000000000000000000000000000000000000000000000
 ```
 ### WBTC => sWBTC
 1. Approve user's token of WBTC to the contract of MultiSignERC20Wallet, whose address is 0x108f44932E5817eD8131261E1967233385cE39e9.
