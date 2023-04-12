@@ -22,9 +22,9 @@ MultiSignERC20Wallet deployed to 0x108f44932E5817eD8131261E1967233385cE39e9 as t
 ### Shimmer evm testnet :
 
 ```
-sMATIC deployed to 0xB97efbB5e3Ac72b8e3502CB7dC9bb8C7F334848B
-sWBTC deployed to 0x085dE71C2F983b4Fb701467A2d1497447Eecd241
-sMIOTA deployed to 0x874A73429C90e57Ef07F6632B7575CDB0EF8f76F
+sMATIC deployed to 0x88bA3fA1f7d371C9a54C812def7542c2E1Dc0feD
+sWBTC deployed to 0x864d8CBc426b9dC6898fECBcB5d01AeB7FbcBc1F
+sMIOTA deployed to 0x8AfDFfe813826e63AE96A55C86Fd4a48028F3d1a
 ```
 
 ## Example for bridge alpha
@@ -51,7 +51,7 @@ convert sWBTC as bytes to hex string is 7357425443
 symbol = 0x7357425443000000000000000000000000000000000000000000000000000000
 ```
 ### sMIOTA => ATOI
-Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMIOT's contract address is 0x874A73429C90e57Ef07F6632B7575CDB0EF8f76F.
+Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMIOT's contract address is 0x8AfDFfe813826e63AE96A55C86Fd4a48028F3d1a.
 ```
 'to' is the Ed25519 Address of atoi network. 
 The Ed25519 Address is 'b1037d303dd8046df74b56d5c38e8a196f304c76414330cd8b14c17fcb830dc8' for the address of 'atoi1qzcsxlfs8hvqgm0hfdtdtsuw3gvk7vzvweq5xvxd3v2vzl7tsvxusahd7gv'.
@@ -59,13 +59,13 @@ symbol = 0x41544f4900000000000000000000000000000000000000000000000000000000
 min amount is 1120000
 ```
 ### sMATIC => MATIC
-Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMATIC's contract address is 0xB97efbB5e3Ac72b8e3502CB7dC9bb8C7F334848B.
+Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMATIC's contract address is 0x88bA3fA1f7d371C9a54C812def7542c2E1Dc0feD.
 ```
 to =     0x0000000000000000000000005Fe47F00dBdD8c38E0606E136Db60076786f7718
 symbol = 0x4554480000000000000000000000000000000000000000000000000000000000
 ```
 ### sWBTC => WBTC
-Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sWBTC's contract address is 0x085dE71C2F983b4Fb701467A2d1497447Eecd241.
+Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sWBTC's contract address is 0x864d8CBc426b9dC6898fECBcB5d01AeB7FbcBc1F.
 ```
 to =     0x0000000000000000000000005Fe47F00dBdD8c38E0606E136Db60076786f7718
 symbol = 0x5742544300000000000000000000000000000000000000000000000000000000
