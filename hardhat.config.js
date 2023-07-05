@@ -6,9 +6,9 @@ module.exports = {
   solidity: {
     version: "0.8.17"
   },
-  defaultNetwork: "smrevm1071",
+  defaultNetwork: "smrevm1072",
   networks: {
-    smrevm1071: {
+    smrevm1072: {
       url: "https://json-rpc.evm.testnet.shimmer.network/",
       accounts: [process.env.RMS_EVM_PRIVATEKEY],
     },
