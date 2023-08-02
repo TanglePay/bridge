@@ -13,7 +13,7 @@ module.exports = {
       accounts: [process.env.RMS_EVM_PRIVATEKEY],
     },
     mumbai: {
-      url: "https://rpc-mumbai.maticvigil.com",
+      url: "https://polygon-mumbai.g.alchemy.com/v2/fXcphe9VsC6eWwEjRWaSz2ATxI_Sxn0K",
       accounts: [process.env.MUMBAI_PRIVATEKEY]
     },
     sepolia: {
