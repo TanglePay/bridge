@@ -15,6 +15,10 @@ module.exports = {
     mumbai: {
       url: "https://rpc-mumbai.maticvigil.com",
       accounts: [process.env.MUMBAI_PRIVATEKEY]
+    },
+    sepolia: {
+      url: "https://sepolia.infura.io/v3/d76f3ff2954844359b16db013a099e45",
+      accounts: [process.env.MUMBAI_PRIVATEKEY]
     }
   }
 };

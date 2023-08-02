@@ -17,8 +17,8 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
         uint8 requiredCount;
         bool sent;
     }
-    mapping(bytes32 => WrapTx) wraps; // txid => WrapTx
-    mapping(address => mapping(bytes32 => bool)) isWrapped; // signer => txid => isWrapped
+    mapping(bytes32 => WrapTx) public wraps; // txid => WrapTx
+    mapping(address => mapping(bytes32 => bool)) public isWrapped; // signer => txid => isWrapped
 
     event Wrap(address indexed to, uint256 amount);
     event UnWrap(

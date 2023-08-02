@@ -11,6 +11,7 @@ async function main() {
     const txErrRecord = await BridgeTxErrorRecord.deploy();
     await txErrRecord.deployed();
     console.log(`BridgeTxErrorRecord deployed to ${txErrRecord.address}`);
+    return;
 
     const from = "0x734d494f54410000000000000000000000000000000000000000000000000000";
     const to = "0x41544f4900000000000000000000000000000000000000000000000000000000";

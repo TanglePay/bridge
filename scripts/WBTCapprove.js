@@ -8,8 +8,8 @@ const hre = require("hardhat");
 require("dotenv").config();
 
 async function main() {
-    const wbtc = await hre.ethers.getContractAt("WBTC", "0x0eddA25a338e68E935112b23C6E8a30AC216AD74")
-    const b = await wbtc.approve("0x108f44932E5817eD8131261E1967233385cE39e9", 10000000000000000n)
+    const wbtc = await hre.ethers.getContractAt("WBTC", "0x2E5591820Dcd82Bf75B369665Ca81eA2Fe54BfB5")
+    const b = await wbtc.approve("0xB32437b48F47BD685a82AD1627cE9F0a9BE01e43", 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFn)
     console.log(`WBTC approve ${b}`);
 }
 
