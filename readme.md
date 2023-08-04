@@ -22,7 +22,7 @@ MultiSignERC20Wallet deployed to 0x108f44932E5817eD8131261E1967233385cE39e9 as t
 ### Shimmer evm testnet :
 
 ```
-sMATIC deployed to 0x88bA3fA1f7d371C9a54C812def7542c2E1Dc0feD
+sMATIC deployed to 0x3Cf63EB3afE4b4717e78eAe99d632321fc5Ce519
 sWBTC deployed to 0x388b395BceB2EDB4636873A3F630565323BB53a1
 sMIOTA deployed to 0xdcC4E969F081C3E967581Aa9175EF6F0a337Ae88
 ```
@@ -59,7 +59,7 @@ symbol = 0x41544f4900000000000000000000000000000000000000000000000000000000
 min amount is 1120000
 ```
 ### sMATIC => MATIC
-Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMATIC's contract address is 0x88bA3fA1f7d371C9a54C812def7542c2E1Dc0feD.
+Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMATIC's contract address is 0x3Cf63EB3afE4b4717e78eAe99d632321fc5Ce519.
 ```
 to =     0x0000000000000000000000005Fe47F00dBdD8c38E0606E136Db60076786f7718
 symbol = 0x4554480000000000000000000000000000000000000000000000000000000000
