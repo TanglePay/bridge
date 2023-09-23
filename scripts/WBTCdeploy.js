@@ -6,6 +6,7 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 require("dotenv").config();
+require("jsaes");
 
 async function main() {
     const WBTC = await hre.ethers.getContractFactory("WBTC")
