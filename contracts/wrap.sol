@@ -8,8 +8,10 @@ import "./multiSign.sol";
 contract BridgeWrap is WrapERC20, Ownable, MultiSign {
     uint24 public constant FEE_DIV_CONST = 100000;
     uint24 public constant feeRate = 200; // it means %0.1 (feeRate / FEE_DIV_CONST * 100%)
+    uint256 public  gasFee;
+    uint256 public immutable GAS_FEE_UPPER;
     uint256 public feeSum;
-    uint256 public minUnWrapAmount;
+    uint256 public immutable minUnwrapAmount;
 
     struct WrapTx {
         uint256 amount;
@@ -32,12 +34,16 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
         string memory _name,
         string memory _symbol,
         uint8 _decimal,
-        uint256 minAmount,
+        uint256 _gasFee,
+        uint256 gasFeeUpper,
+        uint256 _minUnwrapAmount,
         address[] memory _signers,
         uint8 _requireCount
     ) WrapERC20(_name, _symbol, _decimal) MultiSign(_signers, _requireCount) {
         owner = msg.sender;
-        minUnWrapAmount = minAmount;
+        gasFee = _gasFee;
+        GAS_FEE_UPPER = gasFeeUpper;
+        minUnwrapAmount = _minUnwrapAmount;
     }
 
     // mint ERC20 token to user
@@ -74,11 +80,12 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
     }
 
     function unWrap(bytes32 to, bytes32 symbol, uint256 amount) public {
-        require(amount >= minUnWrapAmount, "amount low");
         _burn(msg.sender, amount);
-        uint256 fee = (amount * feeRate) / FEE_DIV_CONST;
+        uint256 fee = (amount * feeRate) / FEE_DIV_CONST + gasFee;
         feeSum += fee;
-        emit UnWrap(msg.sender, to, symbol, amount - fee);
+        amount = amount - fee;
+        require(amount >= minUnwrapAmount, "amount lower for gas fee");
+        emit UnWrap(msg.sender, to, symbol, amount);
     }
 
     //withdraw the fee to dev team
@@ -93,5 +100,11 @@ contract BridgeWrap is WrapERC20, Ownable, MultiSign {
         require(msg.sender == owner, "forbidden");
         feeSum -= fee;
         emit UnWrap(owner, to, symbol, fee);
+    }
+
+    function setGasFee(uint256 newGasFee) external{
+        require(msg.sender == owner, "forbidden");
+        require(newGasFee <= GAS_FEE_UPPER, "too uppper");
+        gasFee = newGasFee;
     }
 }
