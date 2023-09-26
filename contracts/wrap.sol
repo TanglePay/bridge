@@ -7,7 +7,7 @@ import "./multiSign.sol";
 
 contract BridgeWrap is WrapERC20, Ownable, MultiSign {
     uint24 public constant FEE_DIV_CONST = 100000;
-    uint24 public constant feeRate = 200; // it means %0.2 (feeRate / FEE_DIV_CONST * 100%)
+    uint24 public constant feeRate = 200; // it means 0.2% (feeRate / FEE_DIV_CONST * 100%)
     uint256 public  gasFee;
     uint256 public immutable GAS_FEE_UPPER;
     uint256 public feeSum;
