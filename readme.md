@@ -107,9 +107,14 @@ WBTC was deployed to 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599
 MultiSignWallet ETH deployed to 0x7C32097EB6bA75Dc5eF370BEC9019FD09D96ab9d
 MultiSignERC20Wallet WBTC deployed to 0x6c2F73072bD9bc9052D99983e36411f48fa6cDf0
 ```
+### Shimmer L1
+```
+SOON Listen Address is smr1qqp86empn387atca6vvkl4flwaur9542xhphnzw0pk2m3v085szmy0p2pht
+```
 ### Shimmer evm main
 ```
 sETH deployed to 0xa158A39d00C79019A01A6E86c56E96C461334Eb0
 sBTC deployed to 0x1cDF3F46DbF8Cf099D218cF96A769cea82F75316
+sSOON deployed to 0x39DEE4dFA8A94fB02F4004a38543c853F859d79E
 BridgeTxErrorRecord deployed to 0x3C71B92D6f54473a6c66010dF5Aa139cD42c34b0
 ```
