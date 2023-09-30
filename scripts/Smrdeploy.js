@@ -15,7 +15,7 @@ async function main() {
   const requireNum = 1;
 
   const BridgeWrap = await hre.ethers.getContractFactory("BridgeWrap")
-  const sMATIC = await BridgeWrap.deploy("Wrap SOON", "sSOON", 6, 10000, 800000, 1, signers, requireNum);
+  const sMATIC = await BridgeWrap.deploy("Wrap SOON", "sSOON", 6, 50000, 5000000, 1, signers, requireNum);
   await sMATIC.deployed();
   console.log(`sSOON deployed to ${sMATIC.address}`);
   return;
