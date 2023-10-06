@@ -36,6 +36,7 @@ Send atoi coin to the target address : atoi1qryydwght5fkguktsy9rfzarqt9gx3rvpzzk
     "symbol":"sMIOTA"
 }
 ```
+You can also add extra data to supply your platform in the tag, such as "Iotabee". For example, [this transaction was a wrap from SOON to sSOOn](https://explorer.shimmer.network/shimmer/block/0x6c8f0fd9b84d0f386ec5adb1eaf7d7346a5f294784a071bad0b9fa062ace5d47)
 ### MATIC => sMATIC
 Send MATIC to the contract of MultiSignWallet, whose address is 0xb0cD1c4522c5dd243a530555562839De3A0B42d3, by calling the function of wrap(address to, bytes32 symbol) 
 ```
