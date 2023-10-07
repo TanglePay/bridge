@@ -119,3 +119,10 @@ sBTC deployed to 0x1cDF3F46DbF8Cf099D218cF96A769cea82F75316
 sSOON deployed to 0x3C844FB5AD27A078d945dDDA8076A4084A76E513
 BridgeTxErrorRecord deployed to 0x3C71B92D6f54473a6c66010dF5Aa139cD42c34b0
 ```
+
+## Platform Identification
+* When anyone uses the bridges for wraping or unwraping, you can add a platform indentification to the transaction.
+### Iota or Shimmer network
+Add the platform to the Output Feature `Tag`, [the shimmer example](https://explorer.shimmer.network/shimmer/output/0xea637c81097e6928945aab16cfd43182350f84e109f44e179b8003e29c9cc1090000).
+### Evm network
+When calling the wrap or unwrap function in the multisign contract wallet, the platform indentification can be added to next position of `symbol`. For example, symbol = 0x735742544300496F746142656500000000000000000000000000000000000000. string `sWBTC` in bytes to hex is `7357425443`, add zero byte(`00`), then append the platform indentification as hex(`IotaBee` in bytes to hex is `496F7461426565`). Note, the length of symbol cann't be bigger than 32 bytes.
