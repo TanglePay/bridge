@@ -125,7 +125,7 @@ SOON Listen Address is smr1qqp86empn387atca6vvkl4flwaur9542xhphnzw0pk2m3v085szmy
 ```
 ### Shimmer evm main
 ```
-sIOTA deployed to 
+sIOTA deployed to 0x5dA63f4456A56a0c5Cb0B2104a3610D5CA3d48E8
 sETH deployed to 0xa158A39d00C79019A01A6E86c56E96C461334Eb0
 sBTC deployed to 0x1cDF3F46DbF8Cf099D218cF96A769cea82F75316
 sSOON deployed to 0x3C844FB5AD27A078d945dDDA8076A4084A76E513
