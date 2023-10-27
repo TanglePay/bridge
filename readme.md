@@ -13,31 +13,37 @@ For more details on SMPC, to see [Secure_multi-party_computation](https://en.wik
     const signers = ["0x273a0D884aA94EB1cD8735D7B1F1451fC70a1131","0xfC0F8F40eCc0C180A707FdCe7c6FB8138705c785","0xC4607f0F8337Ac925D4353ECf8e57f8057f6ce90"];
     const requireNum = 2;
 ```
-### Mumbai network :
+### IOTA mainnet :
 ```
-WBTC deployed to 0x0eddA25a338e68E935112b23C6E8a30AC216AD74 as the test WBTC token
-MultiSignWallet deployed to 0xb0cD1c4522c5dd243a530555562839De3A0B42d3 as the test MATIC wallet
-MultiSignERC20Wallet deployed to 0x108f44932E5817eD8131261E1967233385cE39e9 as the test WBTC wallet
+address     : iota1qryydwght5fkguktsy9rfzarqt9gx3rvpzzkzfnpq2aalqn6mvnpq0d8wjm
+public key  : 0x8786dc216e64b7f20c8ccb45ca0474d4e9819734cfe60e25c7aacae1bc8bcd6f
 ```
-### Shimmer evm testnet :
+### SepoliaETH network :
+```
+WBTC deployed to 0x99Bd15Ca1F52633b2652C3F13F6D7026ce88b7bF as the test WBTC token
+MultiSignWallet deployed to 0x54773f9c01B9A7E70e7B62EFf871BC5E310F1910 as the test ETH wallet
+MultiSignERC20Wallet deployed to 0x1b562bf60d69E17e7F6C7BEec16FB8FFB419EB20 as the test WBTC wallet
+```
+### Shimmer evm mainnet :
 
 ```
-sMATIC deployed to 0x3Cf63EB3afE4b4717e78eAe99d632321fc5Ce519
-sWBTC deployed to 0x388b395BceB2EDB4636873A3F630565323BB53a1
-sMIOTA deployed to 0xdcC4E969F081C3E967581Aa9175EF6F0a337Ae88
+sIOTA deployed to 0x99Bd15Ca1F52633b2652C3F13F6D7026ce88b7bF
+sETH deployed to 0x54773f9c01B9A7E70e7B62EFf871BC5E310F1910
+sWBTC deployed to 0x1b562bf60d69E17e7F6C7BEec16FB8FFB419EB20
 ```
 
 ## Example for bridge alpha
-### ATOI => sMIOTA
-Send atoi coin to the target address : atoi1qryydwght5fkguktsy9rfzarqt9gx3rvpzzkzfnpq2aalqn6mvnpqgrk0gk. The payload data is as follows:
+### IOTA <=> sIOTA
+Send iota coin to the target address : iota1qryydwght5fkguktsy9rfzarqt9gx3rvpzzkzfnpq2aalqn6mvnpq0d8wjm. The metadata is as follows:
 ```json
 {
-    "to":"usr's evm address, 0x5Fe47F00dBdD8c38E0606E136Db60076786f7718",
-    "symbol":"sMIOTA"
+    "to":"usr's evm address, 0x504dF97f0e5425Eae1D32ACBE5B2E7Dc1f1Dd9cf",
+    "symbol":"sIOTA"
 }
 ```
-You can also add extra data to supply your platform in the tag, such as "Iotabee". For example, [this transaction was a wrap from SOON to sSOOn](https://explorer.shimmer.network/shimmer/block/0x6c8f0fd9b84d0f386ec5adb1eaf7d7346a5f294784a071bad0b9fa062ace5d47)
-### MATIC => sMATIC
+You can also add tag data to supply your platform in the tag, such as "Iotabee". For example, [this transaction was a wrap from SOON to sSOOn](https://explorer.shimmer.network/shimmer/block/0x6c8f0fd9b84d0f386ec5adb1eaf7d7346a5f294784a071bad0b9fa062ace5d47)
+
+### ETH => sETH
 Send MATIC to the contract of MultiSignWallet, whose address is 0xb0cD1c4522c5dd243a530555562839De3A0B42d3, by calling the function of wrap(address to, bytes32 symbol) 
 ```
 convert sMATIC as bytes to hex string is 734d41544943
@@ -51,7 +57,7 @@ symbol = 0x734d415449430000000000000000000000000000000000000000000000000000
 convert sWBTC as bytes to hex string is 7357425443
 symbol = 0x7357425443000000000000000000000000000000000000000000000000000000
 ```
-### sMIOTA => ATOI
+### sIOTA => IOTA
 Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMIOT's contract address is 0x8AfDFfe813826e63AE96A55C86Fd4a48028F3d1a.
 ```
 'to' is the Ed25519 Address of atoi network. 
@@ -59,7 +65,7 @@ The Ed25519 Address is 'b1037d303dd8046df74b56d5c38e8a196f304c76414330cd8b14c17f
 symbol = 0x41544f4900000000000000000000000000000000000000000000000000000000
 min amount is 1120000
 ```
-### sMATIC => MATIC
+### sETH => ETH
 Call the function of unWrap(bytes32 to, bytes32 symbol, uint256 amount) in the contract of BridgeWrap, sMATIC's contract address is 0x3Cf63EB3afE4b4717e78eAe99d632321fc5Ce519.
 ```
 to =     0x0000000000000000000000005Fe47F00dBdD8c38E0606E136Db60076786f7718
@@ -99,8 +105,13 @@ sWBTC deployed to 0x69499Cf6b0244AD7CEA28F6eeeb4EF4d8cd1Bc33
 ## Bridge Online Version
 ### multisigners
 ```js
-    const signers = ["0x380dF538Ab2587B11466d07ca5c671d33497d5Ca", "0x3Fdd4B2d69848F74E44765e6AD423198bdBD94fa", "0xfb6e712F4f71D418A298EBe239889A2496f1359b", "0x5e80cf0C104D2D4f685A15deb65A319e95dd80dD", "0x9dcb974Cf7522F91F2Add8303e7BCB2221063c48", "0xeBbe638eF6dF4A3837435bB44527f8D9BA9CF981"];
+    const signers = ["0xfb6e712F4f71D418A298EBe239889A2496f1359b", "0x380dF538Ab2587B11466d07ca5c671d33497d5Ca", "0x3Fdd4B2d69848F74E44765e6AD423198bdBD94fa", "0x5e80cf0C104D2D4f685A15deb65A319e95dd80dD", "0x9dcb974Cf7522F91F2Add8303e7BCB2221063c48", "0xeBbe638eF6dF4A3837435bB44527f8D9BA9CF981"];
     const requireNum = 4;
+```
+### IOTA network:
+```
+SMPC IOTA Address   : iota1qzx5ut3qj6q3rycpkn0e2glg4vr3cr8tq2dq63wyg36hpdsz2chnc30uza5
+SMPC public key     : b477a4b11a54a6a1a3aa792878f50b49e21536bf0bfdd0876ec99fae4e4bdb08
 ```
 ### Eth mainnet
 ```
@@ -114,10 +125,11 @@ SOON Listen Address is smr1qqp86empn387atca6vvkl4flwaur9542xhphnzw0pk2m3v085szmy
 ```
 ### Shimmer evm main
 ```
+sIOTA deployed to 
 sETH deployed to 0xa158A39d00C79019A01A6E86c56E96C461334Eb0
 sBTC deployed to 0x1cDF3F46DbF8Cf099D218cF96A769cea82F75316
 sSOON deployed to 0x3C844FB5AD27A078d945dDDA8076A4084A76E513
-BridgeTxErrorRecord deployed to 0x3C71B92D6f54473a6c66010dF5Aa139cD42c34b0
+BridgeTxErrorRecord deployed to 0xD9B13709Ce4Ef82402c091f3fc8A93a9360A5c1e
 ```
 
 ## Platform Identification
@@ -126,3 +138,9 @@ BridgeTxErrorRecord deployed to 0x3C71B92D6f54473a6c66010dF5Aa139cD42c34b0
 Add the platform to the Output Feature `Tag`, [the shimmer example](https://explorer.shimmer.network/shimmer/output/0xea637c81097e6928945aab16cfd43182350f84e109f44e179b8003e29c9cc1090000).
 ### Evm network
 When calling the wrap or unwrap function in the multisign contract wallet, the platform indentification can be added to next position of `symbol`. For example, symbol = 0x735742544300496F746142656500000000000000000000000000000000000000. string `sWBTC` in bytes to hex is `7357425443`, add zero byte(`00`), then append the platform indentification as hex(`IotaBee` in bytes to hex is `496F7461426565`). Note, the length of symbol cann't be bigger than 32 bytes.
+
+
+
+## Symbols
+#### IOTA : 0x494f544100000000000000000000000000000000000000000000000000000000
+#### sIOTA: 0x73494f5441000000000000000000000000000000000000000000000000000000
